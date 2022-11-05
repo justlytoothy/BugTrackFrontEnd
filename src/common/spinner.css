@@ -1,0 +1,161 @@
+.lds-roller {
+	display: inline-block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+}
+.lds-roller div {
+	animation: lds-roller 1.7s cubic-bezier(0.3, 0.5, 0.5, 0.3) infinite;
+	transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: rgb(1 113 206);
+	margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+	animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+	top: 63px;
+	left: 63px;
+}
+.lds-roller div:nth-child(2) {
+	animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+	top: 68px;
+	left: 56px;
+}
+.lds-roller div:nth-child(3) {
+	animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+	top: 71px;
+	left: 48px;
+}
+.lds-roller div:nth-child(4) {
+	animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+	top: 72px;
+	left: 40px;
+}
+.lds-roller div:nth-child(5) {
+	animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+	top: 71px;
+	left: 32px;
+}
+.lds-roller div:nth-child(6) {
+	animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+	top: 68px;
+	left: 24px;
+}
+.lds-roller div:nth-child(7) {
+	animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+	top: 63px;
+	left: 17px;
+}
+.lds-roller div:nth-child(8) {
+	animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+	top: 56px;
+	left: 12px;
+}
+@keyframes lds-roller {
+	0% {
+		transform: rotate(0deg);
+		opacity: 0;
+	}
+	10% {
+		opacity: 0.2;
+	}
+	20% {
+		opacity: 0.4;
+	}
+	30% {
+		opacity: 0.6;
+	}
+	40% {
+		opacity: 0.8;
+	}
+	50% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 0.8;
+	}
+	70% {
+		opacity: 0.6;
+	}
+	80% {
+		opacity: 0.4;
+	}
+	90% {
+		opacity: 0.2;
+	}
+	100% {
+		transform: rotate(360deg);
+		opacity: 0;
+	}
+}
+@keyframes pulse {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+.dots span {
+	font-size: 1.3rem;
+	color: rgb(1 113 206);
+	animation: pulse 1.7s cubic-bezier(1, 0.3, 0.3, 1) infinite;
+	display: inline-block;
+}
+.dots span:nth-child(1) {
+	animation-delay: 0s;
+}
+.dots span:nth-child(2) {
+	animation-delay: 0.1s;
+}
+.dots span:nth-child(3) {
+	animation-delay: 0.2s;
+}
+.dots span:nth-child(4) {
+	animation-delay: 0.3s;
+}
+.dots span:nth-child(5) {
+	animation-delay: 0.4s;
+}
+.dots span:nth-child(6) {
+	animation-delay: 0.5s;
+}
+.dots span:nth-child(7) {
+	animation-delay: 0.6s;
+}
+.dots span:nth-child(8) {
+	font-size: 1.7rem;
+	animation-delay: 0.7s;
+}
+.dots span:nth-child(9) {
+	font-size: 1.7rem;
+	animation-delay: 0.8s;
+}
+.dots span:nth-child(10) {
+	font-size: 1.7rem;
+	animation-delay: 0.9s;
+}

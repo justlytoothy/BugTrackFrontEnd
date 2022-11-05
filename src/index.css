@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app,
+#app > div {
+	height: 100%;
+}
+#root {
+	margin: -8px;
+}
+html {
+	scrollbar-width: none !important;
+	-ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+	display: none;
+}
+:root {
+	--prime-color: #19282f;
+	--color-1: #19282f;
+	--color-2: #b33030;
+	--color-3: #a1b57d;
+	--color-4: #d3eca7;
+	--button-hover: #a1b57db9;
+	--slate-gray: #707070;
+	--delete-red: #e2684b;
+	--red-hover: #ad3518;
+	--nice-white: #ffffffff;
+	--rich-black: #070707ff;
+	--charred-coal: #40434eff;
+	--nice-purple: #de89beff;
+	--carolina-blue: #39a0edff;
+	--midnight-blue: #191970;
+	--white-filled: #e0e0e0;
+	--gray-border: #a4a3a3;
+	--back-color: #ffffffff;
+	--navbar-color: #7fa710;
+	--nav-hover: #f2f3f4f5;
+	--sidebar-color: #a71a10;
+	--sidebar-button: #1042a7;
+	--edit-pad: #202092;
+	--edit-pad-hover: #39a0edff;
+}
+.dark {
+	--dark-prime-color: #19282f;
+	--dark-color-1: #19282f;
+	--dark-color-2: #b33030;
+	--dark-color-3: #a1b57d;
+	--dark-color-4: #d3eca7;
+	--dark-button-hover: #a1b57db9;
+	--dark-slate-gray: #707070;
+	--dark-delete-red: #e2684b;
+	--dark-red-hover: #ad3518;
+	--dark-nice-white: #ffffffff;
+	--dark-rich-black: #070707ff;
+	--dark-charred-coal: #40434eff;
+	--dark-nice-purple: #de89beff;
+	--dark-carolina-blue: #39a0edff;
+	--dark-midnight-blue: #191970;
+	--dark-white-filled: #e0e0e0;
+	--dark-gray-border: #a4a3a3;
+	--dark-back-color: #ffffffff;
+	--dark-navbar-color: #7fa710;
+	--dark-nav-hover: #f2f3f4f5;
+	--dark-sidebar-color: #a71a10;
+	--dark-sidebar-button: #1042a7;
+	--dark-edit-pad: #202092;
+	--dark-edit-pad-hover: #39a0edff;
+}
+.break {
+	flex-basis: 100%;
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.fix-modal {
+	border: 1px solid black;
+	background-color: white;
+	overflow: auto;
+	border-radius: 4px;
+	outline: none;
+	padding: 20px;
+	width: fit-content;
+	z-index: 50;
+}
+.fix-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 50;
+}
+.custom-select__control {
+	border-color: var(--midnight-blue) !important;
+}
+.no-scroll-bar {
+	scrollbar-width: none !important;
+	-ms-overflow-style: none;
+}
+.no-scroll-bar::-webkit-scrollbar {
+	display: none;
+}
