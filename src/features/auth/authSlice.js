@@ -16,6 +16,7 @@ if (
 				error: null,
 				allUsers: [],
 				fullName: `${user.first_name} ${user.last_name}`,
+				refresh: 0,
 			}
 		} else {
 			initialState = {
@@ -25,6 +26,7 @@ if (
 				error: null,
 				allUsers: [],
 				fullName: '',
+				refresh: 0,
 			}
 		}
 	}
@@ -36,6 +38,7 @@ if (
 		error: null,
 		allUsers: [],
 		fullName: '',
+		refresh: 0,
 	}
 }
 
@@ -54,6 +57,14 @@ export const newUser = createAsyncThunk('user/register', async (user) => {
 		return response.data
 	} catch (error) {
 		console.log('An error of ' + error.message + ' has occured')
+		throw error
+	}
+})
+export const editUser = createAsyncThunk('user/edit', async (data) => {
+	try {
+		const response = await axios.put('user', data)
+	} catch (error) {
+		console.log(error)
 		throw error
 	}
 })
@@ -136,6 +147,24 @@ const authSlice = createSlice({
 				state.loading = false
 				state.error = action.error.message
 			})
+			.addCase(editUser.pending, (state, action) => {
+				state.loading = true
+				console.log('refreshing pending')
+				state.refresh++
+			})
+			.addCase(editUser.fulfilled, (state, action) => {
+				state.loading = false
+				console.log('refreshing fulfill')
+
+				state.refresh++
+				return action.payload
+			})
+			.addCase(editUser.rejected, (state, action) => {
+				state.loading = false
+				state.error = action.error.message
+				console.log('refreshing reject')
+				state.refresh++
+			})
 			.addCase(newUser.pending, (state, action) => {
 				state.loading = true
 			})
@@ -152,6 +181,7 @@ const authSlice = createSlice({
 export const getLoginStatus = (state) => state.auth.loading
 export const getAllUsers = (state) => state.auth.allUsers
 export const getIsLogged = (state) => state.auth.isLoggedIn
+export const refreshEmployees = (state) => state.auth.refresh
 export const getLoginError = (state) => state.auth.error
 export const getName = (state) => state.auth.fullName
 export const getUser = (state) => state.auth.user

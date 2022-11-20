@@ -16,3 +16,8 @@ export const statusOptions = [
 	{ label: 'Closed' },
 	{ label: 'On Hold' },
 ]
+export const roleOptions = [
+	{ label: 'Admin' },
+	{ label: 'Manager' },
+	{ label: 'Developer' },
+]

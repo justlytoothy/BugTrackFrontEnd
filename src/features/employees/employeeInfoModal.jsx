@@ -5,11 +5,13 @@ import { useDispatch } from 'react-redux'
 import { deleteUser } from '../auth/authSlice.js'
 import { statusChartData, typeChartData } from './graphData.js'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js'
+import { useEffect } from 'react'
 
 ///////////////////
 ///////////////////
 const EmployeeInfoModal = (props) => {
 	const dispatch = useDispatch()
+
 	/**
 	 * Responsively change font size of chart title and legend labels
 	 */
@@ -52,60 +54,12 @@ const EmployeeInfoModal = (props) => {
 			}
 		}
 	})
-
+	useEffect(() => {
+		console.log(props.employee)
+	}, [])
 	const deleteOne = () => {
 		dispatch(deleteUser(props.employee._id))
 		setTimeout(() => props.close(), 100)
-	}
-
-	const employeeGraph = () => {
-		return (
-			<div className='h-1/2 lg:h-full w-full flex flex-col rounded text-rich-black mx-2'>
-				<div className='border-rich-black border rounded overflow-scroll no-scroll-bar min-h-full max-h-full bg-white'>
-					<div className='grid grid-cols-4'>
-						<span className='col-span-3 py-1 text-center flex flex-col justify-center border-b border-r border-rich-black'>
-							<h1 className='truncate'>Employee Name</h1>
-						</span>
-						<span className='col-span-1 py-1 text-center border-b border-rich-black flex flex-col justify-center'>
-							<h1 className='truncate'>Job</h1>
-						</span>
-					</div>
-					{React.Children.toArray(
-						props.employee.employees.map((employee) => {
-							let iter = props.employee.employees.length - 1
-							if (iter !== 0) {
-								iter--
-								return (
-									<div
-										className='grid grid-cols-4 hover:bg-white-filled focus:bg-white-filled cursor-pointer'
-										tabIndex={props.employee.employees.length - iter}>
-										<span className='p-2 border-r border-b border-rich-black col-span-3 truncate'>
-											{employee.first_name + ' ' + employee.last_name}
-										</span>
-										<span className='p-2 border-b border-rich-black col-span-1 truncate'>
-											{employee.role}
-										</span>
-									</div>
-								)
-							} else {
-								return (
-									<div
-										tabIndex={props.employee.employees.length - iter}
-										className='grid grid-cols-4 hover:bg-white-filled focus:bg-white-filled cursor-pointer'>
-										<span className='p-2 border-r border-b border-rich-black col-span-3 truncate'>
-											{employee.first_name + ' ' + employee.last_name}
-										</span>
-										<span className='p-2 border-b border-rich-black col-span-1 truncate'>
-											{employee.role}
-										</span>
-									</div>
-								)
-							}
-						})
-					)}
-				</div>
-			</div>
-		)
 	}
 
 	const openEmployeePage = () => {
@@ -123,7 +77,7 @@ const EmployeeInfoModal = (props) => {
 
 	if (props.employee !== null) {
 		return (
-			<div className='max-h-fit relative min-w-[25vw] max-w-[85vw] lg:max-w-[60vw] 2xl:max-w-[50vw] grid grid-cols-4'>
+			<div className='max-h-[90vh] h-fit relative min-w-[25vw] max-w-[85vw] lg:max-w-[60vw] 2xl:max-w-[50vw] grid grid-cols-4'>
 				<div className='col-span-4 pb-4 flex justify-between'>
 					<h1 className='w-full mt-4 pl-8 text-3xl font-semibold'>
 						{props.employee.first_name + ' ' + props.employee.last_name}
@@ -138,17 +92,44 @@ const EmployeeInfoModal = (props) => {
 						onClick={props.close}></common.FontAwesomeIcon>
 				</div>
 				<div className='col-span-4 grid grid-cols-4 border border-rich-black rounded p-2'>
-					<div className='h-80 col-span-4 relative w-full flex justify-between flex-wrap lg:flex-nowrap p-2 space-y-2 lg:space-y-0'>
-						{/* Employee Information Section */}
-						<div className='h-1/2 lg:h-full border border-rich-black rounded text-rich-black mx-2 w-full overflow-scroll no-scroll-bar p-1'>
-							<h3 className='text-base'>
-								{/* {props.employee.employee_description} */}
-								insert employee info here
-							</h3>
+					<div className='col-span-4 flex flex-col justify-between border border-rich-black p-2'>
+						{/**Information about employee */}
+						<div className='flex justify-between flex-wrap'>
+							<div className='flex flex-col space-y-4 text-left px-4 py-2'>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Preferred Name</h2>
+									<p>{props.employee.preferred_full_name}</p>
+								</div>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Employee Role</h2>
+									<p>{props.employee.role}</p>
+								</div>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Date Hired</h2>
+									<p>
+										{new Date(props.employee.created_at).toLocaleDateString(
+											'en-US'
+										)}
+									</p>
+								</div>
+							</div>
+							<div className='flex flex-col space-y-4 text-left px-4 py-2'>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Assigned Projects</h2>
+									<p>{props.employee.assigned_projects.length}</p>
+								</div>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Assigned Tickets</h2>
+									<p>{props.employee.assigned_tickets.length}</p>
+								</div>
+								<div className='flex flex-col space-y-2'>
+									<h2 className='font-semibold'>Created Tickets</h2>
+									<p>{props.employee.created_tickets.length}</p>
+								</div>
+							</div>
 						</div>
-						{/* Employee Table Section */}
-						{/* {employeeGraph()} */}
-						table here
+
+						<div></div>
 					</div>
 					<div className='col-span-4 flex justify-evenly mt-2'>
 						<div className='h-36 lg:h-52 flex justify-between w-[47%] p-2 border border-rich-black'>
@@ -190,7 +171,7 @@ const EmployeeInfoModal = (props) => {
 						extraClass=''
 						click={props.close}></common.ActionButton>
 					<common.ActionButton
-						text='Delete Employee'
+						text='Terminate'
 						click={deleteOne}
 						type='delete'></common.ActionButton>
 				</div>

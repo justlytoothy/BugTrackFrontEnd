@@ -144,6 +144,7 @@ const ProjectDetails = (props) => {
 		}
 	}
 	const openEditTicket = () => {
+		console.log('edit ticket')
 		setEditTicket(true)
 	}
 	const closeEditTicket = () => {
@@ -434,7 +435,7 @@ const ProjectDetails = (props) => {
 						}}
 						isOpen={editTicket}
 						onRequestClose={closeEditTicket}
-						contentLabel='Edit Project'>
+						contentLabel='Edit Ticket'>
 						<EditTicketComponent
 							project={selectedTicket}
 							close={closeEditTicket}

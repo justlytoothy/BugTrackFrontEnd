@@ -28,7 +28,6 @@ const TicketCard = (props) => {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if (props.ticket !== null) {
-
 		return (
 			<div className='grid grid-cols-4 h-fit w-fit'>
 				<div className='col-span-4 flex justify-between pb-4'>
@@ -97,7 +96,7 @@ const TicketCard = (props) => {
 							type='edit'
 							text='Edit Ticket'
 							extraClass=''
-							click={props.editTicket}></common.ActionButton>
+							click={props.edit}></common.ActionButton>
 						<common.ActionButton
 							type='info'
 							text='More Info'

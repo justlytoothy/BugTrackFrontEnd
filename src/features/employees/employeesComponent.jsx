@@ -4,19 +4,24 @@ import { listAllUsers, getAllUsers } from '../auth/authSlice'
 import { useOutletContext } from 'react-router-dom'
 import common from '../../common/commonImports'
 import EmployeeInfoModal from './employeeInfoModal'
+import EditEmployee from './editEmployee'
 import Modal from 'react-modal'
+import { refreshEmployees, getLoginStatus } from '../auth/authSlice.js'
 
 const EmployeesComponent = (props) => {
 	const closeIt = useOutletContext()
 	Modal.setAppElement('#root')
 	const dispatch = useDispatch()
-	useEffect(() => {
-		dispatch(listAllUsers())
-	}, [])
+	const refreshStat = useSelector(refreshEmployees)
+	const loading = useSelector(getLoginStatus)
 	const allEmployees = useSelector(getAllUsers)
 	const [showInfo, setShowInfo] = useState(false)
 	const [showEdit, setShowEdit] = useState(false)
 	const [selectedEmployee, setSelectedEmployee] = useState('')
+	useEffect(() => {
+		console.log('refreshing page')
+		dispatch(listAllUsers())
+	}, [refreshStat])
 	const showEmployeeInfo = (employee) => {
 		setSelectedEmployee(employee)
 		setShowInfo(true)
@@ -25,9 +30,14 @@ const EmployeesComponent = (props) => {
 		setShowInfo(false)
 	}
 	const openEditEmployee = () => {
+		setShowInfo(false)
 		setShowEdit(true)
 	}
 	const closeEditEmployee = () => {
+		setShowEdit(false)
+	}
+	const saveChanges = (employee) => {
+		console.log(employee)
 		setShowEdit(false)
 	}
 
@@ -118,7 +128,7 @@ const EmployeesComponent = (props) => {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (allEmployees.length > 0) {
+	if (allEmployees.length > 0 && !loading) {
 		return (
 			<div
 				className='bg-back-color w-full grid grid-cols-2 min-h-full rounded border-2 border-rich-black'
@@ -161,8 +171,24 @@ const EmployeesComponent = (props) => {
 					contentLabel='View Employee'>
 					<EmployeeInfoModal
 						employee={selectedEmployee}
-						editEmployeet={openEditEmployee}
+						editEmployee={openEditEmployee}
 						close={closeEmployeeInfo}></EmployeeInfoModal>
+				</Modal>
+				<Modal
+					overlayClassName='fix-modal-overlay'
+					className='fix-modal'
+					style={{
+						content: {
+							WebkitOverflowScrolling: 'touch',
+						},
+					}}
+					isOpen={showEdit}
+					onRequestClose={closeEditEmployee}
+					contentLabel='Edit Employee'>
+					<EditEmployee
+						employee={selectedEmployee}
+						save={saveChanges}
+						close={closeEditEmployee}></EditEmployee>
 				</Modal>
 			</div>
 		)
